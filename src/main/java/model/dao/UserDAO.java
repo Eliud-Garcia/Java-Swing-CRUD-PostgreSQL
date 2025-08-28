@@ -3,7 +3,6 @@ package model.dao;
 import model.entities.User;
 import util.DataBaseConnection;
 
-import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +22,7 @@ public class UserDAO {
     public List<User> getAllUsers() {
         List<User> userList = new ArrayList<>();
         String sql = "select * from DEUDOR;";
-        try {
-            Connection db_connection = DataBaseConnection.getConnection();
+        try(Connection db_connection = DataBaseConnection.getConnection()) {
             Statement st = db_connection.createStatement();
             ResultSet res = st.executeQuery(sql);
 
@@ -47,8 +45,7 @@ public class UserDAO {
     public boolean addUser(User user){
         //insert into DEUDOR (nombres, apellidos, cantidad_deuda, descripcion) values ('Eliud', 'Garcia', 10000, 'ropa');
         String sql = "insert into DEUDOR (nombres, apellidos, cantidad_deuda, descripcion) values (?, ?, ?, ?);";
-        try{
-            Connection db_connection = DataBaseConnection.getConnection();
+        try(Connection db_connection = DataBaseConnection.getConnection()){
             PreparedStatement st = db_connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             st.setString(1, user.getNames());
             st.setString(2, user.getLastnames());
@@ -75,9 +72,8 @@ public class UserDAO {
     public boolean deleteUserById(int id_user){
         //delete from DEUDOR where id = 2;
         String sql = "delete from DEUDOR where id = ?";
-        try{
-            Connection db_Connection = DataBaseConnection.getConnection();
-            CallableStatement cs = db_Connection.prepareCall(sql);
+        try(Connection db_connection = DataBaseConnection.getConnection()){
+            CallableStatement cs = db_connection.prepareCall(sql);
             cs.setInt(1, id_user);
             
             int affected_rows = cs.executeUpdate();
@@ -95,9 +91,8 @@ public class UserDAO {
 
     public boolean updateUser(User user){
         String sql = "update DEUDOR set nombres = ?, apellidos = ?, cantidad_deuda = ?, descripcion = ? where id = ?";
-        try {
-            Connection db_Connection = DataBaseConnection.getConnection();
-            PreparedStatement pst = db_Connection.prepareStatement(sql);
+        try (Connection db_connection = DataBaseConnection.getConnection()){
+            PreparedStatement pst = db_connection.prepareStatement(sql);
             pst.setString(1, user.getNames());
             pst.setString(2, user.getLastnames());
             pst.setLong(3, user.getAmount());
@@ -117,8 +112,7 @@ public class UserDAO {
         String sql = "select * from DEUDOR where id = ?";
         User user = null;
 
-        try {
-            Connection db_connection = DataBaseConnection.getConnection();
+        try (Connection db_connection = DataBaseConnection.getConnection()){
             PreparedStatement pst = db_connection.prepareStatement(sql);
 
             pst.setInt(1, id_user);
