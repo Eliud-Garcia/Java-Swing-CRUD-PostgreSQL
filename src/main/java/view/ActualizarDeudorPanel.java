@@ -25,7 +25,7 @@ public class ActualizarDeudorPanel extends JPanel{
         txtDeuda = new JTextField(10);
         txtDescripcion = new JTextField(20);
         
-        btnBuscar = new JButton("Buscar por ID");
+        btnBuscar = new JButton("Buscar");
         btnActualizar = new JButton("Actualizar Deudor");
         btnLimpiar = new JButton("Limpiar");
         
@@ -71,8 +71,8 @@ public class ActualizarDeudorPanel extends JPanel{
         add(centerPanel, BorderLayout.CENTER);
     }
 
-    public int getId() throws NumberFormatException {
-        return Integer.parseInt(txtId.getText().trim());
+    public String getId(){
+        return txtId.getText().trim();
     }
 
     public String getNombres() {
@@ -83,8 +83,8 @@ public class ActualizarDeudorPanel extends JPanel{
         return txtApellidos.getText().trim();
     }
 
-    public int getDeuda() throws NumberFormatException {
-        return Integer.parseInt(txtDeuda.getText().trim());
+    public String getDeuda(){
+        return txtDeuda.getText().trim();
     }
 
     public String getDescripcion() {
@@ -102,6 +102,8 @@ public class ActualizarDeudorPanel extends JPanel{
     public JButton getBtnLimpiar() {
         return btnLimpiar;
     }
+    
+    
 
     public void setCamposEditable(boolean editable) {
         txtNombres.setEditable(editable);
@@ -111,7 +113,7 @@ public class ActualizarDeudorPanel extends JPanel{
         btnActualizar.setEnabled(editable);
     }
 
-    public void llenarFormulario(String nombres, String apellidos, int deuda, String descripcion) {
+    public void llenarFormulario(String nombres, String apellidos, long deuda, String descripcion) {
         txtNombres.setText(nombres);
         txtApellidos.setText(apellidos);
         txtDeuda.setText(String.valueOf(deuda));
