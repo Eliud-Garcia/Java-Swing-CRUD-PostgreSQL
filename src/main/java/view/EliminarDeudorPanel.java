@@ -59,8 +59,8 @@ public class EliminarDeudorPanel extends JPanel{
         add(centerPanel, BorderLayout.CENTER);
     }
 
-    public int getId() throws NumberFormatException {
-        return Integer.parseInt(txtId.getText().trim());
+    public String getId() {
+        return txtId.getText().trim();
     }
 
     public JButton getBtnBuscar() {
@@ -76,6 +76,7 @@ public class EliminarDeudorPanel extends JPanel{
     }
 
     public void mostrarDetalles(String detalles) {
+        txtDetalles.setFont(new Font("Arial", 200, 20));
         txtDetalles.setText(detalles);
         btnEliminar.setEnabled(true);
     }

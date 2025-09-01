@@ -33,6 +33,12 @@ public class UserController {
         mainFrame.getActualizarPanel().getBtnBuscar().addActionListener(e -> buscarPorId());
         mainFrame.getActualizarPanel().getBtnActualizar().addActionListener(e -> actualizarDeudor());
         mainFrame.getActualizarPanel().getBtnLimpiar().addActionListener(e -> limpiarCamposActualizar());
+        
+        //Listeners para el panel ELIMINAR
+        mainFrame.getEliminarPanel().getBtnBuscar().addActionListener(e -> eliminarPorId());
+        mainFrame.getEliminarPanel().getBtnEliminar().addActionListener(e -> eliminarDeudor());
+        mainFrame.getEliminarPanel().getBtnLimpiar().addActionListener(e -> limpiarCamposEliminar());
+        
     }
 
     private void cargarDatos(){
@@ -165,6 +171,48 @@ public class UserController {
     
     public void limpiarCamposActualizar(){
         mainFrame.getActualizarPanel().limpiarFormulario();
+    }
+    
+    public void eliminarPorId(){
+        String id_txt = mainFrame.getEliminarPanel().getId();
+        
+        if(!validarId(id_txt)) return;
+        
+        int id = Integer.parseInt(id_txt);
+        User user = userService.findUserById(id);
+        
+        if(user == null){
+            showMessage("No existe un usuario con ese id");
+            return;
+        }
+        
+        mainFrame.getEliminarPanel().mostrarDetalles(user.toString());
+    }
+    
+    public void eliminarDeudor(){
+        String id_txt = mainFrame.getEliminarPanel().getId();
+        
+        if(!validarId(id_txt)) return;
+        
+        int id = Integer.parseInt(id_txt);
+        User user = userService.findUserById(id);
+        
+        if(user == null){
+            showMessage("No existe un usuario con ese id");
+            return;
+        }
+        
+        boolean ans = userService.deleteUserById(id);
+        if(ans){
+            showMessage("Deudor eliminado correctamente");
+        }else{
+            showMessage("No se ha podido eliminar al deudor");
+        }
+        limpiarCamposEliminar();
+    }
+    
+    public void limpiarCamposEliminar(){
+        mainFrame.getEliminarPanel().limpiarFormulario();
     }
         
     void showMessage(String message){
