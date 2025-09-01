@@ -1,5 +1,4 @@
 
-
 create table DEUDOR(
 	id SERIAL not null primary key,
 	nombres varchar(50),
@@ -8,14 +7,18 @@ create table DEUDOR(
 	descripcion varchar(50)
 );
 
-/*para saber el usuario actual*/
-select current_user;
-
-/*INSERT*/
-insert into Deudores (nombres, apellidos, cantidad_deuda) values ('Eliud', 'Garcia', 20000);
-
-/*mostrar*/
+-- mostrar
 select * from DEUDOR;
 
--- para validar si ya existe un registro de deudor
-select exists (select 1 from Deudores where nombres='juan' and apellidos='gonzales' and cantidad_deuda=1)
+-- insertar
+
+insert into DEUDOR (nombres, apellidos, cantidad_deuda, descripcion) values ('Camila', 'Gonzales', 100000, 'audifonos');
+
+-- eliminar
+delete from DEUDOR where id = 25;
+
+-- editar
+update DEUDOR set nombres = 'Eliud', apellidos = 'Garcia' where id = 1; 
+
+-- buscar
+select * from DEUDOR where id = 25;
